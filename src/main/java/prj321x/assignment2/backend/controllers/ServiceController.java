@@ -33,9 +33,17 @@ public class ServiceController {
     public ResponseEntity<RecruitmentDto> getPopularRecruitment() {
         RecruitmentDto recruitmentDto;
         try {
-            recruitmentDto = recruitmentRepository
-                    .findMostAppliedRecruitment().map(recruitmentMapper::toDto)
+//            recruitmentDto = recruitmentRepository
+//                    .findMostAppliedRecruitment().map(recruitmentMapper::toDto)
+//                    .orElseThrow();
+            CategoryDto categoryDto = categoryRepository
+                    .findCategoryByMostPopular().map(categoryMapper::toDto)
                     .orElseThrow();
+            recruitmentDto = recruitmentRepository
+                    .findMostAppliedRecruitmentByCategory(categoryDto.id())
+                    .map(recruitmentMapper::toDto)
+                    .orElseThrow();
+            
             return ResponseEntity.ok(recruitmentDto);
         } catch (NoSuchElementException e) {
             return ResponseEntity.noContent().build();

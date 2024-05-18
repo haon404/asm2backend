@@ -17,7 +17,7 @@ import java.util.UUID;
 @Table(name = "category")
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private UUID id;
     
@@ -31,6 +31,11 @@ public class Category {
     private Set<Recruitment> recruitments = new LinkedHashSet<>();
     
     @Override
+    public final int hashCode() {
+        return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
+    }
+    
+    @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
         if (o == null) return false;
@@ -39,10 +44,5 @@ public class Category {
         if (thisEffectiveClass != oEffectiveClass) return false;
         Category category = (Category) o;
         return getId() != null && Objects.equals(getId(), category.getId());
-    }
-    
-    @Override
-    public final int hashCode() {
-        return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }
 }
