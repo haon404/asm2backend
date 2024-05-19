@@ -62,4 +62,5 @@ public class SecurityConfig {
         JWKSource<SecurityContext> jks = new ImmutableJWKSet<>(new JWKSet(jwk));
         return new NimbusJwtEncoder(jks);
     }
+    
 }

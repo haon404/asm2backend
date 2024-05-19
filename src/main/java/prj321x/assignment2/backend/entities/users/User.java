@@ -18,16 +18,19 @@ import java.util.UUID;
 @Table(name = "user")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
     private UUID id;
     
-    @OneToOne(optional = false, orphanRemoval = true)
-    @JoinColumn(name = "role_id", nullable = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "role_id")
     private Role role;
     
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
+    
+    @Column(name = "full_name", nullable = false)
+    private String fullName;
     
     @Column(name = "password", nullable = false)
     private String password;

@@ -7,6 +7,6 @@ import java.util.UUID;
 /**
  * DTO for {@link User}
  */
-public record UserDto(UUID id, String roleRoleName, String email, String password,
-                      Set<UUID> recruitmentApplyIds) implements Serializable {
+public record UserDto(UUID id, String roleRoleName, String email,
+                      Set<UUID> recruitmentApplyIds, String fullName) implements Serializable {
 }
