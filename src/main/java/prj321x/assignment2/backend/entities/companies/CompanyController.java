@@ -69,4 +69,21 @@ public class CompanyController {
             return ResponseEntity.badRequest().build();
         }
     }
+    
+    @PostMapping("/company/update")
+    @PreAuthorize("hasAnyAuthority('RECRUITER')")
+    public ResponseEntity<CompanyDto> updateCompany(
+            @RequestBody CompanyDto companyDto) {
+        try {
+            Company company = companyRepository.findById(companyDto.id())
+                    .orElseThrow();
+            company = companyMapper.partialUpdate(companyDto, company);
+            companyRepository.save(company);
+            return ResponseEntity.ok(companyMapper.toDto(company));
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }

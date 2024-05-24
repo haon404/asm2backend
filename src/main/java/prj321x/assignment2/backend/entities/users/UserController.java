@@ -71,4 +71,20 @@ public class UserController {
             return ResponseEntity.badRequest().build();
         }
     }
+    
+    @PostMapping("/user/update")
+    @PreAuthorize("hasAnyAuthority('APPLICANT', 'RECRUITER')")
+    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto) {
+        try {
+            User user = userRepository.findById(userDto.id())
+                    .orElseThrow();
+            user = userMapper.partialUpdate(userDto, user);
+            userRepository.save(user);
+            return ResponseEntity.ok(userMapper.toDto(user));
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }
