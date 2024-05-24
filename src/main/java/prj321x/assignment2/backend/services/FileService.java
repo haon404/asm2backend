@@ -1,7 +1,6 @@
 package prj321x.assignment2.backend.services;
 
 import lombok.AllArgsConstructor;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,7 +14,6 @@ import java.util.UUID;
 @Service
 @AllArgsConstructor
 public class FileService {
-    private final ResourceLoader resourceLoader;
     
     public String saveFile(MultipartFile file) throws IOException {
         String uniqueName = UUID.randomUUID() + "_" + file.getOriginalFilename();
