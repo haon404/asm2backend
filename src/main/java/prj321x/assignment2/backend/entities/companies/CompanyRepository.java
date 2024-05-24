@@ -7,6 +7,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface CompanyRepository extends JpaRepository<Company, UUID> {
-    @Query("select c from Company c order by size(c.recruitments) limit 1")
+    @Query("select c from Company c join c.recruitments r group by c.id order by count(r.id) limit 1")
     Optional<Company> findByMostRecruitment();
 }

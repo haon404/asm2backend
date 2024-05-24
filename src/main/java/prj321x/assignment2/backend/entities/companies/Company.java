@@ -19,8 +19,23 @@ public class Company {
     @Column(name = "id", nullable = false)
     private UUID id;
     
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
+    
+    @Column(name = "email")
+    private String email;
+    
+    @Column(name = "address")
+    private String address;
+    
+    @Column(name = "description")
+    private String description;
+    
+    @Column(name = "company_picture")
+    private String companyPicture;
+    
+    @Column(name = "phone_number")
+    private String phoneNumber;
     
     @OneToMany(mappedBy = "company", orphanRemoval = true)
     private Set<Recruitment> recruitments = new LinkedHashSet<>();

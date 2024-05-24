@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 import prj321x.assignment2.backend.services.TokenService;
 
 @RestController
-@RequestMapping("/api/v1/login")
+@RequestMapping("/api/v1")
 @AllArgsConstructor
 @CrossOrigin
 public class LoginController {
     private final TokenService tokenService;
     
-    @PostMapping
+    @PostMapping("/login")
     public ResponseEntity<String> login(Authentication authentication) {
         String token = tokenService.generateToken(authentication);
         return ResponseEntity.ok(token);

@@ -9,9 +9,11 @@ import java.util.stream.Collectors;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface UserMapper {
+    @Mapping(source = "companyId", target = "company.id")
     @Mapping(source = "roleRoleName", target = "role.roleName")
     User toEntity(UserDto userDto);
     
+    @Mapping(source = "company.id", target = "companyId")
     @Mapping(target = "recruitmentApplyIds", expression = "java(recruitmentAppliesToRecruitmentApplyIds(user.getRecruitmentApplies()))")
     @Mapping(source = "role.roleName", target = "roleRoleName")
     UserDto toDto(User user);

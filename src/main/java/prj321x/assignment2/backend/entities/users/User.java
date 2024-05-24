@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.proxy.HibernateProxy;
+import prj321x.assignment2.backend.entities.companies.Company;
 import prj321x.assignment2.backend.entities.recruitments.applies.RecruitmentApply;
 import prj321x.assignment2.backend.entities.roles.Role;
 
@@ -34,6 +35,22 @@ public class User {
     
     @Column(name = "password", nullable = false)
     private String password;
+    
+    @Column(name = "address")
+    private String address;
+    
+    @Column(name = "phone_number")
+    private String phoneNumber;
+    
+    @Column(name = "description")
+    private String description;
+    
+    @Column(name = "profile_picture")
+    private String profilePicture;
+    
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    private Company company;
     
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private Set<RecruitmentApply> recruitmentApplies = new LinkedHashSet<>();
